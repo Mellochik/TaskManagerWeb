@@ -4,9 +4,9 @@ import { ref, onMounted } from 'vue'
 
 const props = defineProps({
     status: String
-})
+});
 
-const tasks = ref([])
+const tasks = ref([]);
 
 const statusValue = ref(props.status)
 
@@ -30,7 +30,7 @@ onMounted(async () => {
 
     const data = await response.json()
     tasks.value = data
-})
+});
 </script>
 
 <template>

@@ -5,21 +5,21 @@ import TaskIcon from '@/components/icons/TaskIcon.vue';
 
 <template>
     <div class="page">
-        <div class="page-title">
+        <h1>
             <TaskIcon :size="40"/>
             Задачи
-        </div>
-        <div class="page-subtitle">
+        </h1>
+        <h2>
             Не выполнено
-        </div>
+        </h2>
         <TaskGrid :status="'Не выполнено'"/>
-        <div class="page-subtitle">
+        <h2>
             В работе
-        </div>
+        </h2>
         <TaskGrid :status="'В работе'"/>
-        <div class="page-subtitle">
+        <h2>
             Готово
-        </div>
+        </h2>
         <TaskGrid :status="'Готово'"/>
     </div>
 </template>
@@ -31,7 +31,7 @@ import TaskIcon from '@/components/icons/TaskIcon.vue';
     gap: 10px;
 }
 
-.page-title {
+h1 {
     font-size: 40px;
     font-weight: bold;
     color: #cacaca;
@@ -40,13 +40,13 @@ import TaskIcon from '@/components/icons/TaskIcon.vue';
     text-align: center;
     align-items: center;
     gap: 10px;
+    margin: 0px;
 }
 
-.page-subtitle {
+h2 {
     font-size: 30px;
     font-weight: bold;
     color: #a5a5a5;
-    border-bottom: #a5a5a5 1px solid;
     padding: 10px 0px 10px 10px;
     margin: 10px;
     display: flex;

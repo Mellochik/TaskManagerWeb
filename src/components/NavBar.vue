@@ -10,27 +10,13 @@ import TaskIcon from './icons/TaskIcon.vue';
         <SearchIcon />
         Поиск
     </div>
-    <RouterLink to="/">
-        <div class="link">
-            <HomeIcon />
-            Домашняя
-        </div>
+    <RouterLink to="/" tag="a" class="link">
+        <HomeIcon />
+        Домашняя
     </RouterLink>
-    <RouterLink to="/tasks">
-        <div class="link">
-            <TaskIcon />
-            Задачи
-        </div>
-    </RouterLink>
-    <RouterLink>
-        <div class="link">
-            Документы
-        </div>
-    </RouterLink>
-    <RouterLink>
-        <div class="link">
-            Таблицы
-        </div>
+    <RouterLink to="/tasks" tag="a" class="link">
+        <TaskIcon />
+        Задачи
     </RouterLink>
 </template>
 
@@ -102,5 +88,4 @@ a {
 .link:hover {
     background-color: #373737;
 }
-
 </style>
