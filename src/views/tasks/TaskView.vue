@@ -8,22 +8,8 @@ const props = defineProps({
     }
 });
 
-const task = ref({
-    "id": 0,
-    "title": "string",
-    "create_date": "2024-08-10T19:10:01.306Z",
-    "date_end": "2024-08-10T19:10:01.306Z",
-    "description": "string",
-    "priority": {
-        "name": "string",
-        "id": 0
-    },
-    "status": {
-        "name": "string",
-        "id": 0
-    },
-    "labels": []
-});
+const task = ref();
+const labels = ref();
 
 function parseDate(date) {
     if (date != null) {
@@ -36,15 +22,25 @@ function parseDate(date) {
 
 onMounted(async () => {
     try {
-        const response = await fetch(`http://127.0.0.1:8000/tasks/show/${props.id}`, {
+        var response = await fetch(`http://127.0.0.1:8000/tasks/show/${props.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
         })
 
-        const data = await response.json()
-        task.value = data
+        var data = await response.json();
+        task.value = data;
+
+        response = await fetch('http://127.0.0.1:8000/tasks/labels', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        data = await response.json()
+        labels.value = data
     } catch (error) {
         console.error('Error fetching task:', error)
     }
@@ -52,22 +48,38 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="task">
+    <div class="task" v-if="task">
         <h1>{{ task.title }}</h1>
+        <h2>Даты</h2>
         <div class="date">
-            Создана: <input type="datetime-local" :value="parseDate(task.create_date)"/>
+            Создана: <input type="datetime-local" :value="parseDate(task.create_date)" readonly />
         </div>
         <div class="date">
             Окончание: <input type="datetime-local" :value="parseDate(task.date_end)" />
         </div>
-        <div>{{ task.status.name }}</div>
-        <div>{{ task.priority.name }}</div>
-        <div v-for="label in task.labels" :key="label.id">
-            <input :value="label.name"/>
+        <h2>Детали</h2>
+        <div class="status-container">
+            Статус:
+            <div class="status">
+                {{ task.status.name }}
+            </div>
         </div>
-        <div>
-            <textarea>{{ task.description }}</textarea>
+        <div class="priority-container">
+            Приоритет:
+            <div class="status">
+                {{ task.priority.name }}
+            </div>
         </div>
+        <div class="labels-container">
+            Метки:
+            <div v-for="label in task.labels" :key="label.id" class="label">
+                {{ label.name }}
+            </div>
+        </div>
+        <h2>Описание</h2>
+        <textarea v-model="task.description" />
+        <h2>Комментарии</h2>
+        <div>WIP</div>
     </div>
 </template>
 
@@ -76,7 +88,7 @@ h1 {
     font-size: 40px;
     font-weight: bold;
     color: #cacaca;
-    padding-left: 20px;
+    padding: 0px;
     display: flex;
     text-align: center;
     align-items: center;
@@ -86,41 +98,71 @@ h1 {
 
 h2 {
     font-size: 30px;
+    padding: 0px;
+    margin: 20px 0px 10px 0px;
     font-weight: bold;
     color: #a5a5a5;
-    padding: 10px 0px 10px 10px;
-    margin: 10px;
     display: flex;
     text-align: center;
     align-items: center;
-    gap: 10px;
 }
 
 .task {
     display: flex;
     flex-direction: column;
-    gap: 5px;
     font-size: 20px;
-    color: #cacaca;
+    color: #a5a5a5;
+    gap: 10px;
 }
 
 .date {
     font-size: 20px;
-    color: #cacaca;
+    color: #a5a5a5;
     max-width: fit-content;
 }
 
-input,
-textarea,
-select {
+.status-container,
+.priority-container,
+.labels-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status,
+.priority,
+.label {
+    background-color: #2c2c2c;
+    border-radius: 10px;
+    padding: 2px 10px;
+}
+
+input {
     font-size: 20px;
-    padding: 5px;
-    margin-bottom: 10px;
     border-color: transparent;
     border-radius: 10px;
-    color: #cacaca;
-    background-color: transparent;
+    color: #a5a5a5;
+    background-color: #2c2c2c;
     max-width: fit-content;
+    padding: 2px 10px;
+}
+
+textarea {
+    font-size: 20px;
+    border-color: transparent;
+    border-radius: 10px;
+    color: #a5a5a5;
+    background-color: transparent;
+    height: auto;
+    overflow-y: auto;
+    resize: vertical;
+    min-height: 50px;
+    max-height: 200px;
+}
+
+textarea:focus {
+    outline: none;
+    border: none;
 }
 
 .form-grid textarea {
