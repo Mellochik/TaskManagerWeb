@@ -72,30 +72,6 @@ onMounted(async () => {
 </template>
 
 <style>
-h1 {
-    font-size: 40px;
-    font-weight: bold;
-    color: #cacaca;
-    padding-left: 20px;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    gap: 10px;
-    margin: 0px;
-}
-
-h2 {
-    font-size: 30px;
-    font-weight: bold;
-    color: #a5a5a5;
-    padding: 10px 0px 10px 10px;
-    margin: 10px;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    gap: 10px;
-}
-
 .task {
     display: flex;
     flex-direction: column;

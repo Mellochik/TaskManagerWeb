@@ -1,5 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
+import MoreIcon from '../icons/MoreIcon.vue';
 import HighPriorityIcon from '../icons/HighPriorityIcon.vue';
 import MediumPriorityIcon from '../icons/MediumPriorityIcon.vue';
 import LowPriorityIcon from '../icons/LowPriorityIcon.vue';
@@ -36,9 +37,14 @@ function parseDate(date) {
 </script>
 
 <template>
-    <div class="task-card" @click="openTaskDetail(task.id)">
-        <div class="title">
-            {{ task.title }}
+    <div class="task-card">
+        <div class="title-container" @click="openTaskDetail(task.id)">
+            <div class="title">
+                {{ task.title }}
+            </div>
+            <div class="more-icon" @click.stop="handleMoreIconClick">
+                <MoreIcon :size="20" :color="'#cacaca'" />
+            </div>
         </div>
         <div class="description">
             <div class="dateEnd-container">
@@ -70,18 +76,26 @@ function parseDate(date) {
     transform: scale(1.02);
 }
 
-.title {
+.title-container {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: flex-end;
-    font-size: 24px;
-    font-weight: 600;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     padding: 10px;
-    color: #cacaca;
-    height: 50px;
     background-color: #2c2c2c;
+    height: 50px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #cacaca;
+    cursor: pointer;
+}
+
+.more-icon {
+    cursor: pointer;
 }
 
 .description {
