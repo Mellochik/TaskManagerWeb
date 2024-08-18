@@ -3,6 +3,7 @@ import TaskCard from './TaskCard.vue'
 import { ref, onMounted } from 'vue'
 
 const props = defineProps({
+    title: String,
     status: String
 });
 
@@ -34,41 +35,20 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="task-grid-container">
-        <div class="task-grid">
-            <TaskCard v-for="task in tasks" :key="task.id" :task="task" />
-        </div>
+    <h2 v-if="title">
+        {{ title }}
+    </h2>
+    <div class="task-column">
+        <TaskCard v-for="task in tasks" :key="task.id" :task="task" />
     </div>
 </template>
 
 <style scoped>
-.task-grid-container {
-    flex: 1;
+.task-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     overflow-y: auto;
-    padding: 10px 10px 10px 10px;
-}
-
-.task-grid {
-    display: grid;
-    gap: 20px;
-    grid-template-columns: repeat(4, 1fr);
-}
-
-@media (max-width: 1400px) {
-    .task-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 1200px) {
-    .task-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 1000px) {
-    .task-grid {
-        grid-template-columns: repeat(1, 1fr);
-    }
+    padding: 10px;
 }
 </style>

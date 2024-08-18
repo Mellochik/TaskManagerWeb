@@ -1,7 +1,11 @@
 <script setup>
+import { ref } from 'vue';
 import HomeIcon from './icons/HomeIcon.vue';
 import SearchIcon from './icons/SearchIcon.vue';
+import AddIcon from './icons/AddIcon.vue';
 import TaskIcon from './icons/TaskIcon.vue';
+
+var isActiveLink = ref('');
 </script>
 
 <template>
@@ -10,14 +14,22 @@ import TaskIcon from './icons/TaskIcon.vue';
         <SearchIcon />
         Поиск
     </div>
-    <RouterLink to="/" tag="a" class="link">
-        <HomeIcon />
-        Домашняя
-    </RouterLink>
-    <RouterLink to="/tasks" tag="a" class="link">
-        <TaskIcon />
-        Задачи
-    </RouterLink>
+    <div :class="{ links: isActiveLink === 'Home' }">
+        <RouterLink to="/" class="link" @click="isActiveLink = 'Home'">
+            <HomeIcon />
+            Домашняя
+        </RouterLink>
+    </div>
+    <div :class="{ links: isActiveLink === 'Tasks' }">
+        <RouterLink to="/tasks" class="link" @click="isActiveLink = 'Tasks'">
+            <TaskIcon />
+            Задачи
+        </RouterLink>
+        <RouterLink v-if="isActiveLink === 'Tasks'" to="/task/create" class="link">
+            <AddIcon color="#8b8b8b"/>
+            Создать
+        </RouterLink>
+    </div>
 </template>
 
 <style scoped>
@@ -63,15 +75,8 @@ a {
 }
 
 .links {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    transition: opacity 0.3s ease;
-}
-
-.links.hidden {
-    opacity: 0;
-    pointer-events: none;
+    border-radius: 10px;
+    background-color: #2c2c2c;
 }
 
 .link {

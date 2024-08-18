@@ -1,26 +1,25 @@
 <script setup>
-import TaskGrid from '@/components/tasks/TaskGrid.vue';
 import TaskIcon from '@/components/icons/TaskIcon.vue';
+import TasksColumn from '@/components/tasks/TasksColumn.vue';
 </script>
 
 <template>
     <div class="page">
         <h1>
-            <TaskIcon :size="40"/>
+            <TaskIcon :size="40" />
             Задачи
         </h1>
-        <h2>
-            Не выполнено
-        </h2>
-        <TaskGrid :status="'Не выполнено'"/>
-        <h2>
-            В работе
-        </h2>
-        <TaskGrid :status="'В работе'"/>
-        <h2>
-            Готово
-        </h2>
-        <TaskGrid :status="'Готово'"/>
+        <div class="content">
+            <div>
+                <TasksColumn :title="'Не выполнено'" :status="'Не выполнено'" />
+            </div>
+            <div>
+                <TasksColumn :title="'В работе'" :status="'В работе'" />
+            </div>
+            <div>
+                <TasksColumn :title="'Готово'" :status="'Готово'" />
+            </div>
+        </div>
     </div>
 </template>
 
@@ -31,27 +30,19 @@ import TaskIcon from '@/components/icons/TaskIcon.vue';
     gap: 10px;
 }
 
-h1 {
-    font-size: 40px;
-    font-weight: bold;
-    color: #cacaca;
-    padding-left: 20px;
+.content {
     display: flex;
-    text-align: center;
-    align-items: center;
+    flex-direction: row;
     gap: 10px;
-    margin: 0px;
 }
 
-h2 {
-    font-size: 30px;
-    font-weight: bold;
-    color: #a5a5a5;
-    padding: 10px 0px 10px 10px;
-    margin: 10px;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    gap: 10px;
+.content > div {
+  flex: 1 1 0px;
+}
+
+@media (max-width: 1200px) {
+  .content {
+    flex-direction: column;
+  }
 }
 </style>
