@@ -32,8 +32,7 @@ const router = createRouter({
     {
       path: '/task/:id/update',
       name: 'task-update',
-      component: TaskUpdate,
-      props: true
+      component: TaskUpdate
     }
   ]
 })

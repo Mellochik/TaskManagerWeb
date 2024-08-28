@@ -44,6 +44,10 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+h2 {
+    padding: 10px 20px;
+}
+
 .task-column {
     display: flex;
     flex-direction: column;

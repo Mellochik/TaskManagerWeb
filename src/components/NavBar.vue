@@ -1,11 +1,29 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch, onMounted  } from 'vue';
+import { useRoute } from 'vue-router';
 import HomeIcon from './icons/HomeIcon.vue';
 import SearchIcon from './icons/SearchIcon.vue';
 import AddIcon from './icons/AddIcon.vue';
 import TaskIcon from './icons/TaskIcon.vue';
 
-var isActiveLink = ref('');
+const route = useRoute();
+const isActiveLink = ref('Home');
+
+onMounted(() => {
+  updateActiveLink(route.path);
+});
+
+watch(() => route.path, (newPath) => {
+  updateActiveLink(newPath);
+});
+
+function updateActiveLink(newPath) {
+  if (newPath === '/') {
+    isActiveLink.value = 'Home';
+  } else if (newPath === '/tasks' || /^\/task(\/|$)/.test(newPath)) {
+    isActiveLink.value = 'Tasks';
+  }
+}
 </script>
 
 <template>
@@ -15,13 +33,13 @@ var isActiveLink = ref('');
         Поиск
     </div>
     <div :class="{ links: isActiveLink === 'Home' }">
-        <RouterLink to="/" class="link" @click="isActiveLink = 'Home'">
+        <RouterLink to="/" class="link">
             <HomeIcon />
             Домашняя
         </RouterLink>
     </div>
     <div :class="{ links: isActiveLink === 'Tasks' }">
-        <RouterLink to="/tasks" class="link" @click="isActiveLink = 'Tasks'">
+        <RouterLink to="/tasks" class="link">
             <TaskIcon />
             Задачи
         </RouterLink>

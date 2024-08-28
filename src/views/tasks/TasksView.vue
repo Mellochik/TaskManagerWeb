@@ -24,6 +24,10 @@ import TasksColumn from '@/components/tasks/TasksColumn.vue';
 </template>
 
 <style scoped>
+h1 {
+    padding: 10px 10px;
+}
+
 .page {
     display: flex;
     flex-direction: column;
